@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_black_blue"
+    tools:context=".ui.MainActivity">
+
+    <TextView
+        android:id="@+id/accountQuestionTextView"
+        android:layout_width="316dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="21dp"
+        android:text="@string/accountQuestion"
+        android:textAlignment="center"
+        android:textColor="#FBFBFB"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.062"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnStart"
+        app:layout_constraintVertical_bias="0.573" />
+
+    <TextView
+        android:id="@+id/advantagesTextView"
+        android:layout_width="368dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/welcome_advantages"
+        android:textAlignment="center"
+        android:textColor="#F6F3F3"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.586"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/motoTextView"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/motoTextView"
+        android:layout_width="426dp"
+        android:layout_height="122dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/welcome_moto"
+        android:textAlignment="center"
+        android:textColor="#FAF8F8"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/headingTextView"
+        app:layout_constraintVertical_bias="0.019" />
+
+    <TextView
+        android:id="@+id/headingTextView"
+        android:layout_width="355dp"
+        android:layout_height="155dp"
+        android:text="@string/welcome_heading"
+        android:textAlignment="center"
+        android:textColor="#FAF3F3"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.217" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnStart"
+        android:layout_width="183dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="112dp"
+
+        android:background="@drawable/btn_gradient"
+
+        android:text="@string/Started"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:gravity="center"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/advantagesTextView"/>
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="127dp"
+        android:layout_height="110dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:contentDescription="logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/logo1" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="171dp"
+        android:layout_marginBottom="9dp"
+        android:background="@drawable/btn_gradient"
+        android:backgroundTint="@null"
+        android:text="@string/Signin"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/accountQuestionTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.304"
+        app:layout_constraintStart_toEndOf="@+id/btnStart"
+        app:layout_constraintTop_toBottomOf="@+id/advantagesTextView"
+        app:layout_constraintVertical_bias="0.396" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

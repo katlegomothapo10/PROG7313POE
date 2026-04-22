@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "906996260747",
+    "project_id": "prog7313authenticationq",
+    "storage_bucket": "prog7313authenticationq.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:906996260747:android:42c41861af68df8acbd98e",
+        "android_client_info": {
+          "package_name": "com.example.prog7313poe"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWt_uJBaGT_NnKAqqaHc8Mw7lFJTQy4g0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
