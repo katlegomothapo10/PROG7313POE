@@ -49,16 +49,13 @@ class Signin : AppCompatActivity() {
         }
         textView.text = Html.fromHtml(getString(R.string.app_name), Html.FROM_HTML_MODE_LEGACY)
 
-        // 🔐 Initialize Firebase Auth
         auth = FirebaseAuth.getInstance()
 
-        // 🧾 Link UI elements
         val emailEt = findViewById<EditText>(R.id.btnEmail)
         val passwordEt = findViewById<EditText>(R.id.btnPassword)
         val confirmPasswordEt = findViewById<EditText>(R.id.btnConfirmPassword)
         val signinBtn = findViewById<Button>(R.id.btnSignin)
 
-        // 🟢 REGISTER USER
         signinBtn.setOnClickListener {
 
             val email = emailEt.text.toString().trim()
@@ -86,7 +83,6 @@ class Signin : AppCompatActivity() {
         }
     }
 
-    // 🔁 Auto login check (optional but useful)
     override fun onStart() {
         super.onStart()
 

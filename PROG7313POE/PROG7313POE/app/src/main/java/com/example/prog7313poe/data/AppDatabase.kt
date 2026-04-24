@@ -6,27 +6,32 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.prog7313poe.model.User
 import com.example.prog7313poe.viewModel.UserDao
+import com.example.prog7313poe.model.Expense
+import com.example.prog7313poe.viewModel.ExpenseDao
 
-@Database(entities = [User::class], version = 1)
+
+@Database(entities = [User::class, Expense::class], version = 2)
 abstract class AppDatabase : RoomDatabase(){
     abstract fun userDao(): UserDao
+    abstract fun expenseDao(): ExpenseDao
 
-    companion object{
+    companion object {
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
-        fun getDatabase(context: Context): AppDatabase
-        {
-            return INSTANCE ?: synchronized(this){
+        fun getDatabase(context: Context): AppDatabase {
+            return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
                     "user_db"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
+
                 INSTANCE = instance
                 instance
             }
         }
-
     }
 }

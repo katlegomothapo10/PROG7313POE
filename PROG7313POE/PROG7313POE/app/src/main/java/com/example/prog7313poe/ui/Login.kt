@@ -94,6 +94,8 @@ class Login : AppCompatActivity() {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this, Dashboard::class.java))
+                        finish()
                     } else {
                         Toast.makeText(this, "Login Failed: ${task.exception?.message}", Toast.LENGTH_LONG).show()
                     }

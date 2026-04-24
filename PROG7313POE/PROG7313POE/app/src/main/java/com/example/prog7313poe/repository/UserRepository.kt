@@ -1,6 +1,7 @@
 package com.example.prog7313poe.repository
 
 import com.example.prog7313poe.data.AppDatabase
+import com.example.prog7313poe.model.Expense
 import com.example.prog7313poe.model.User
 import com.google.firebase.database.*
 import kotlinx.coroutines.CoroutineScope
@@ -32,5 +33,11 @@ class UserRepository(
                 // handle error if needed
             }
         })
+    }
+    fun getAllExpenses() = database.expenseDao().getAllExpenses()
+    fun getTotalSpent() = database.expenseDao().getTotalSpent()
+
+    suspend fun insertExpense(expense: Expense) {
+        database.expenseDao().insert(expense)
     }
 }
