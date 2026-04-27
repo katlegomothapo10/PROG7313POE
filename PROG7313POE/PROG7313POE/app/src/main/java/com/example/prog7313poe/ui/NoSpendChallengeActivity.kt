@@ -1,12 +1,11 @@
 package com.example.prog7313poe.ui
 
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import android.widget.Toast
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.toColorInt
 import com.example.prog7313poe.R
 
 class NoSpendChallengeActivity : AppCompatActivity() {
@@ -18,8 +17,9 @@ class NoSpendChallengeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_no_spend_challenge)
+        setupBottomNavigation(R.id.nav_challenge)
 
-
+        val heading = findViewById<TextView>(R.id.txtHeading)
         val btn3Days = findViewById<Button>(R.id.btn3Days)
         val btn7Days = findViewById<Button>(R.id.btn7Days)
         val btn30Days = findViewById<Button>(R.id.btn30Days)
@@ -28,30 +28,7 @@ class NoSpendChallengeActivity : AppCompatActivity() {
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
         val tvMoneySaved = findViewById<TextView>(R.id.tvMoneySaved)
 
-        val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigation)
-
-        bottomNavigation.setOnItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.nav_home -> {
-                    // Navigate to Home (Dashboard)
-                    Toast.makeText(this, "Home clicked", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                R.id.nav_insights -> {
-                    Toast.makeText(this, "Insights clicked", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                R.id.nav_awards -> {
-                    Toast.makeText(this, "Awards clicked", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                R.id.nav_profile -> {
-                    Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                else -> false
-            }
-        }
+        applyGradient(heading)
 
         btn3Days.setOnClickListener {
             currentDays = 3
@@ -84,9 +61,24 @@ class NoSpendChallengeActivity : AppCompatActivity() {
     }
 
     private fun updateDisplay(dayText: TextView, progressBar: ProgressBar, savedText: TextView) {
-        dayText.text = "🔥 Day $currentDayProgress of $currentDays"
+        dayText.text = "Day $currentDayProgress of $currentDays"
         val progress = (currentDayProgress * 100) / currentDays
         progressBar.progress = progress
         savedText.text = "R$moneySaved saved by not spending"
+    }
+
+    private fun applyGradient(textView: TextView) {
+        textView.viewTreeObserver.addOnGlobalLayoutListener {
+            val width = textView.width.toFloat()
+
+            val shader = android.graphics.LinearGradient(
+                0f, 0f, width, textView.textSize,
+                intArrayOf("#FFD700".toColorInt(), "#FF69B4".toColorInt()),
+                null,
+                android.graphics.Shader.TileMode.CLAMP
+            )
+
+            textView.paint.shader = shader
+        }
     }
 }

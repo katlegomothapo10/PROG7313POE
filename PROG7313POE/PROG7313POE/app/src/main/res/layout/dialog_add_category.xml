@@ -1,13 +1,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:padding="20dp"
-    android:background="#FFFFFF"
+    android:background="@drawable/bg_black_blue"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <EditText
         android:id="@+id/etName"
         android:hint="Category name"
+        android:background="@drawable/btn_white"
+        android:padding="12dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -15,13 +19,20 @@
         android:id="@+id/etBudget"
         android:hint="Budget amount"
         android:inputType="numberDecimal"
+        android:background="@drawable/btn_white"
+        android:padding="12dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         android:layout_marginTop="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnSave"
         android:text="Save category"
+        android:textColor="@color/black"
+        android:background="@drawable/btn_gradient"
+        android:backgroundTint="@null"
         android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

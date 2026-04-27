@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
@@ -10,8 +11,8 @@
 
     <TextView
         android:id="@+id/txtCategoryName"
-        android:text="🍕Food"
-        android:textColor="#FFF6A5"
+        android:text="Category"
+        android:textColor="#FFF4B0"
         android:textSize="22sp"
         android:textStyle="bold"
         android:gravity="center"
@@ -21,7 +22,7 @@
     <TextView
         android:id="@+id/txtCategoryAmount"
         android:text="R0/R0"
-        android:textColor="#FFF6A5"
+        android:textColor="#FFF4B0"
         android:textSize="22sp"
         android:textStyle="bold"
         android:gravity="center"
@@ -41,8 +42,8 @@
 
     <TextView
         android:id="@+id/txtDaysLeft"
-        android:text="📅7 days left"
-        android:textColor="#FFF6A5"
+        android:text="Days left this month"
+        android:textColor="#FFF4B0"
         android:textSize="20sp"
         android:textStyle="bold"
         android:gravity="center"

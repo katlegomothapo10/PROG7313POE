@@ -14,7 +14,7 @@
         android:theme="@style/Theme.PROG7313POE">
 
         <!-- 🔥 YOUR NEW SCREEN -->
-        <activity android:name=".ui.BudgetCategoriesActivity" />
+
 
         <activity
             android:name=".ui.Signin"
@@ -36,6 +36,7 @@
             android:name=".ui.ViewImage" />
         <activity
             android:name=".ui.NoSpendChallengeActivity" />
+        <activity android:name=".ui.BudgetCategoriesActivity"/>
         <activity
             android:name=".ui.MainActivity"
             android:exported="true">

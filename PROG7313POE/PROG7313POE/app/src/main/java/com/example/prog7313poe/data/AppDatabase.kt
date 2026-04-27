@@ -9,6 +9,7 @@ import com.example.prog7313poe.model.Category
 import com.example.prog7313poe.model.Expense
 import com.example.prog7313poe.viewModel.UserDao
 import com.example.prog7313poe.viewModel.ExpenseDao
+import com.example.prog7313poe.viewModel.CategoryDao
 
 @Database(
     entities = [User::class, Category::class, Expense::class],

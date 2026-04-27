@@ -23,11 +23,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // TEMPORARY: Opens your Budget Categories screen first for testing
-        startActivity(Intent(this, BudgetCategoriesActivity::class.java))
-        finish()
-        return
-
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 

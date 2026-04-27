@@ -21,6 +21,7 @@ class Dashboard : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_dashboard)
+        setupBottomNavigation(R.id.nav_dashboard)
 
         val db = AppDatabase.getDatabase(this)
 

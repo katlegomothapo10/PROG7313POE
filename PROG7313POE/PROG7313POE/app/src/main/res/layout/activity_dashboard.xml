@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@drawable/bg_black_blue"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
     <LinearLayout
         android:orientation="vertical"
@@ -138,4 +144,8 @@
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
-</ScrollView>
+
+    </ScrollView>
+
+    <include layout="@layout/include_bottom_navigation" />
+</LinearLayout>
