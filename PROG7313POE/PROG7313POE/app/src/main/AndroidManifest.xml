@@ -33,6 +33,8 @@
         <activity
             android:name=".ui.ViewExpenses" />
         <activity
+            android:name=".ui.InsightsActivity" />
+        <activity
             android:name=".ui.ViewImage" />
         <activity
             android:name=".ui.NoSpendChallengeActivity" />

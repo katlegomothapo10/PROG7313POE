@@ -22,8 +22,8 @@
         android:title="Budget" />
 
     <item
-        android:id="@+id/nav_challenge"
-        android:icon="@drawable/ic_nav_challenge"
-        android:title="Challenge" />
+        android:id="@+id/nav_insights"
+        android:icon="@drawable/ic_nav_insights"
+        android:title="Insights" />
 
 </menu>

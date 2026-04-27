@@ -19,6 +19,9 @@ interface ExpenseDao {
     @Query("SELECT * FROM expenses WHERE id = :id LIMIT 1")
     suspend fun getExpenseById(id: Int): Expense?
 
+    @Query("UPDATE expenses SET category = :newCategory WHERE category = :oldCategory")
+    suspend fun updateCategoryName(oldCategory: String, newCategory: String)
+
     @Query("SELECT * FROM expenses ORDER BY id DESC")
     fun getAllExpenses(): Flow<List<Expense>>
 

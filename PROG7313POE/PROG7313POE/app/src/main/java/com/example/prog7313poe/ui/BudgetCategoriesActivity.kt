@@ -30,7 +30,6 @@ class BudgetCategoriesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_budget_categories)
         setupBottomNavigation(R.id.nav_budget)
-        setupBottomNavigation(R.id.nav_dashboard)
 
         val db = AppDatabase.getDatabase(this)
         val recycler = findViewById<RecyclerView>(R.id.recyclerCategories)
@@ -45,6 +44,8 @@ class BudgetCategoriesActivity : AppCompatActivity() {
         recycler.adapter = adapter
 
         lifecycleScope.launch {
+            seedDefaultCategoriesIfNeeded(db, userId)
+
             db.categoryDao().getCategories(userId).collect { savedCategories ->
                 categories = savedCategories
                 adapter.updateData(savedCategories)
@@ -56,16 +57,26 @@ class BudgetCategoriesActivity : AppCompatActivity() {
         }
 
         btnDelete.setOnClickListener {
-            showDeleteCategoryDialog()
+            showManageCategoryDialog()
         }
     }
 
     private fun showAddCategoryDialog() {
+        showCategoryFormDialog()
+    }
+
+    private fun showCategoryFormDialog(category: Category? = null) {
         val dialogView = layoutInflater.inflate(R.layout.dialog_add_category, null)
 
         val etName = dialogView.findViewById<EditText>(R.id.etName)
         val etBudget = dialogView.findViewById<EditText>(R.id.etBudget)
         val btnSave = dialogView.findViewById<Button>(R.id.btnSave)
+
+        if (category != null) {
+            etName.setText(category.name)
+            etBudget.setText(category.budgetLimit.toString())
+            btnSave.text = "Update category"
+        }
 
         val dialog = AlertDialog.Builder(this)
             .setView(dialogView)
@@ -89,7 +100,8 @@ class BudgetCategoriesActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 val categoryDao = AppDatabase.getDatabase(this@BudgetCategoriesActivity).categoryDao()
 
-                if (categoryDao.categoryExists(userId, name) > 0) {
+                val isRenaming = category == null || !category.name.equals(name, ignoreCase = true)
+                if (isRenaming && categoryDao.categoryExists(userId, name) > 0) {
                     Toast.makeText(
                         this@BudgetCategoriesActivity,
                         "Category already exists",
@@ -98,19 +110,34 @@ class BudgetCategoriesActivity : AppCompatActivity() {
                     return@launch
                 }
 
-                categoryDao.insert(
-                    Category(
-                        userId = userId,
-                        name = name,
-                        color = "#FF7A1A",
-                        budgetLimit = budget,
-                        spentAmount = 0.0
+                if (category == null) {
+                    categoryDao.insert(
+                        Category(
+                            userId = userId,
+                            name = name,
+                            color = "#FF7A1A",
+                            budgetLimit = budget,
+                            spentAmount = 0.0
+                        )
                     )
-                )
+                } else {
+                    categoryDao.update(
+                        category.copy(
+                            name = name,
+                            budgetLimit = budget
+                        )
+                    )
+
+                    if (category.name != name) {
+                        AppDatabase.getDatabase(this@BudgetCategoriesActivity)
+                            .expenseDao()
+                            .updateCategoryName(category.name, name)
+                    }
+                }
 
                 Toast.makeText(
                     this@BudgetCategoriesActivity,
-                    "Category added successfully",
+                    if (category == null) "Category added successfully" else "Category updated",
                     Toast.LENGTH_SHORT
                 ).show()
                 dialog.dismiss()
@@ -120,7 +147,7 @@ class BudgetCategoriesActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun showDeleteCategoryDialog() {
+    private fun showManageCategoryDialog() {
         if (categories.isEmpty()) {
             Toast.makeText(this, "No categories to delete", Toast.LENGTH_SHORT).show()
             return
@@ -129,29 +156,44 @@ class BudgetCategoriesActivity : AppCompatActivity() {
         val categoryNames = categories.map { it.name }.toTypedArray()
 
         AlertDialog.Builder(this)
-            .setTitle("Delete category")
+            .setTitle("Choose category")
             .setItems(categoryNames) { _, which ->
                 val category = categories[which]
-
-                AlertDialog.Builder(this)
-                    .setTitle("Delete ${category.name}?")
-                    .setMessage("This will remove the category from your budget list.")
-                    .setPositiveButton("Delete") { _, _ ->
-                        lifecycleScope.launch {
-                            AppDatabase.getDatabase(this@BudgetCategoriesActivity)
-                                .categoryDao()
-                                .delete(category)
-
-                            Toast.makeText(
-                                this@BudgetCategoriesActivity,
-                                "Category deleted",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-                    .setNegativeButton("Cancel", null)
-                    .show()
+                showCategoryActionsDialog(category)
             }
+            .show()
+    }
+
+    private fun showCategoryActionsDialog(category: Category) {
+        AlertDialog.Builder(this)
+            .setTitle(category.name)
+            .setItems(arrayOf("Edit category", "Delete category")) { _, which ->
+                when (which) {
+                    0 -> showCategoryFormDialog(category)
+                    1 -> confirmDeleteCategory(category)
+                }
+            }
+            .show()
+    }
+
+    private fun confirmDeleteCategory(category: Category) {
+        AlertDialog.Builder(this)
+            .setTitle("Delete ${category.name}?")
+            .setMessage("This will remove the category from your budget list.")
+            .setPositiveButton("Delete") { _, _ ->
+                lifecycleScope.launch {
+                    AppDatabase.getDatabase(this@BudgetCategoriesActivity)
+                        .categoryDao()
+                        .delete(category)
+
+                    Toast.makeText(
+                        this@BudgetCategoriesActivity,
+                        "Category deleted",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            .setNegativeButton("Cancel", null)
             .show()
     }
 
@@ -165,7 +207,10 @@ class BudgetCategoriesActivity : AppCompatActivity() {
 
             val shader = LinearGradient(
                 0f, 0f, width, textView.textSize,
-                intArrayOf("#FFD700".toColorInt(), "#FF69B4".toColorInt()),
+                intArrayOf(
+                    "#FFD700".toColorInt(), // gold
+                    "#FF69B4".toColorInt()  // pink
+                ),
                 null,
                 Shader.TileMode.CLAMP
             )

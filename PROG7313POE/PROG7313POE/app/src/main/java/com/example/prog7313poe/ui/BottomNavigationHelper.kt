@@ -9,7 +9,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 fun AppCompatActivity.setupBottomNavigation(@IdRes selectedItemId: Int? = null) {
     val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigation) ?: return
 
-    // Prevent old listeners interfering
     bottomNavigation.setOnItemSelectedListener(null)
 
     selectedItemId?.let {
@@ -24,7 +23,7 @@ fun AppCompatActivity.setupBottomNavigation(@IdRes selectedItemId: Int? = null) 
             R.id.nav_add_expense -> AddExpense::class.java
             R.id.nav_view_expenses -> ViewExpenses::class.java
             R.id.nav_budget -> BudgetCategoriesActivity::class.java
-            R.id.nav_challenge -> NoSpendChallengeActivity::class.java
+            R.id.nav_insights -> InsightsActivity::class.java
             else -> null
         }
 

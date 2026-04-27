@@ -27,6 +27,9 @@ interface CategoryDao {
     @Query("SELECT COUNT(*) FROM categories WHERE userId = :userId AND LOWER(name) = LOWER(:name)")
     suspend fun categoryExists(userId: String, name: String): Int
 
+    @Query("SELECT COUNT(*) FROM categories WHERE userId = :userId")
+    suspend fun categoryCount(userId: String): Int
+
     @Query("SELECT * FROM categories WHERE userId = :userId AND name = :name LIMIT 1")
     suspend fun getCategoryByName(userId: String, name: String): Category?
 }

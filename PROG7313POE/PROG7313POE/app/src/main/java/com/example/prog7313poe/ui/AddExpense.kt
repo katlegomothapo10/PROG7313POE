@@ -44,6 +44,7 @@ class AddExpense : AppCompatActivity() {
 
         val title = findViewById<EditText>(R.id.etTitle)
         val amount = findViewById<EditText>(R.id.etAmount)
+        val description = findViewById<EditText>(R.id.etDescription)
         val date = findViewById<EditText>(R.id.etDate)
         val spinner = findViewById<Spinner>(R.id.spCategory)
         val imgPreview = findViewById<ImageView>(R.id.imgPreview)
@@ -93,10 +94,13 @@ class AddExpense : AppCompatActivity() {
         }
 
         lifecycleScope.launch {
+            seedDefaultCategoriesIfNeeded(db, userId)
+
             if (expenseId != -1) {
                 editingExpense = db.expenseDao().getExpenseById(expenseId)
                 editingExpense?.let { expense ->
                     title.setText(expense.title)
+                    description.setText(expense.description)
                     amount.setText(expense.amount.toString())
                     date.setText(expense.date)
                     selectEditingCategory(spinner)
@@ -170,6 +174,7 @@ class AddExpense : AppCompatActivity() {
             val newExpense = Expense(
                 id = editingExpense?.id ?: 0,
                 title = title.text.toString().trim(),
+                description = description.text.toString().trim(),
                 amount = expenseAmount,
                 category = selectedCategory.name,
                 date = date.text.toString(),

@@ -17,7 +17,7 @@ class NoSpendChallengeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_no_spend_challenge)
-        setupBottomNavigation(R.id.nav_challenge)
+        setupBottomNavigation()
 
         val heading = findViewById<TextView>(R.id.txtHeading)
         val btn3Days = findViewById<Button>(R.id.btn3Days)
@@ -69,7 +69,7 @@ class NoSpendChallengeActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        setupBottomNavigation(R.id.nav_challenge)
+        setupBottomNavigation()
     }
 
     private fun applyGradient(textView: TextView) {

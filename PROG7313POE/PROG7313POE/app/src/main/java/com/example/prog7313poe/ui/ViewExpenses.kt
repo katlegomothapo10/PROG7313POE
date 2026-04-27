@@ -181,7 +181,13 @@ class ViewExpenses : AppCompatActivity() {
         details.text = "R${"%.2f".format(expense.amount)}  |  ${expense.date}"
         details.setTextColor("#333333".toColorInt())
         details.textSize = 14f
-        details.setPadding(0, 4, 0, 10)
+        details.setPadding(0, 4, 0, 6)
+
+        val description = TextView(this)
+        description.text = expense.description.ifBlank { "No description" }
+        description.setTextColor("#333333".toColorInt())
+        description.textSize = 14f
+        description.setPadding(0, 0, 0, 10)
 
         val buttonContainer = LinearLayout(this)
         buttonContainer.orientation = LinearLayout.HORIZONTAL
@@ -204,6 +210,7 @@ class ViewExpenses : AppCompatActivity() {
 
         row.addView(titleLine)
         row.addView(details)
+        row.addView(description)
         row.addView(buttonContainer)
 
         return row

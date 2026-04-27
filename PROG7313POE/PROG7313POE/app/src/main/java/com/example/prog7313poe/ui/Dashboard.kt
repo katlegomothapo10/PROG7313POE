@@ -40,6 +40,13 @@ class Dashboard : AppCompatActivity() {
         applyGradient(usernameText)
         applyGradient(greetingText)
 
+        lifecycleScope.launch {
+            seedDefaultCategoriesIfNeeded(
+                db,
+                FirebaseAuth.getInstance().currentUser?.uid ?: "test_user"
+            )
+        }
+
         btnExpense.setOnClickListener {
 
             val options = arrayOf("Add Expense", "View Expenses")
