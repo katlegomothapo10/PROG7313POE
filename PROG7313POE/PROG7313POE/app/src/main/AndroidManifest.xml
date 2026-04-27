@@ -12,12 +12,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PROG7313POE">
+
+        <!-- 🔥 YOUR NEW SCREEN -->
+
+
         <activity
             android:name=".ui.Signin"
             android:exported="false" />
+
         <activity
             android:name=".ui.Login"
             android:exported="false" />
+
         <activity
             android:name=".ui.Dashboard"
             android:exported="false" />
@@ -29,14 +35,18 @@
         <activity
             android:name=".ui.ViewImage" />
         <activity
+            android:name=".ui.NoSpendChallengeActivity" />
+        <activity android:name=".ui.BudgetCategoriesActivity"/>
+        <activity
             android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
     </application>
 
 </manifest>

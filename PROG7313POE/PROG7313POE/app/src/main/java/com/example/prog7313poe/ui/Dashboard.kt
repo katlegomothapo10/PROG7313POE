@@ -21,6 +21,7 @@ class Dashboard : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_dashboard)
+        setupBottomNavigation(R.id.nav_dashboard)
 
         val db = AppDatabase.getDatabase(this)
 
@@ -59,6 +60,12 @@ class Dashboard : AppCompatActivity() {
                 .show()
         }
 
+        val btnChallenge = findViewById<Button>(R.id.btnChallenge)
+        btnChallenge.setOnClickListener {
+            val intent = Intent(this, NoSpendChallengeActivity::class.java)
+            startActivity(intent)
+        }
+
         lifecycleScope.launch {
             try {
                 db.expenseDao().getAllExpenses().collect { expenses ->
@@ -85,6 +92,11 @@ class Dashboard : AppCompatActivity() {
                 e.printStackTrace()
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setupBottomNavigation(R.id.nav_dashboard)
     }
 
     private fun applyGradient(textView: TextView) {
